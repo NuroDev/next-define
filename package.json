@@ -42,9 +42,23 @@
     "@vitest/ui": "^0.28.4",
     "cross-env": "^7.0.3",
     "minifaker": "^1.34.1",
+    "next": "^13.1.6",
+    "react": "^18.2.0",
     "rimraf": "^4.1.2",
     "tsup": "^6.5.0",
     "typescript": "^4.9.5",
     "vitest": "^0.28.4"
+  },
+  "peerDependencies": {
+    "next": ">=12 || >=13",
+    "react": ">= 17 || >=18"
+  },
+  "peerDependenciesMeta": {
+    "next": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
   }
 }
