@@ -1,19 +1,22 @@
 {
-  "name": "typescript-lib",
+  "name": "next-define",
   "version": "0.1.1",
-  "description": "Project template to bootstrap a new TypeScript library",
+  "description": "Fully typed `define` functions for Next.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nurodev/typescript-lib.git"
+    "url": "https://github.com/nurodev/next-define.git"
   },
-  "homepage": "https://github.com/nurodev/typescript-lib",
-  "bugs": "https://github.com/nurodev/typescript-lib/issues",
+  "homepage": "https://github.com/nurodev/next-define",
+  "bugs": "https://github.com/nurodev/next-define/issues",
   "author": {
     "name": "nurodev",
     "email": "me@nuro.dev",
     "url": "https://nuro.dev"
   },
   "keywords": [
+    "define",
+    "next",
+    "nextjs",
     "typescript"
   ],
   "license": "MIT",
@@ -26,7 +29,6 @@
     "README.md"
   ],
   "scripts": {
-    "coverage": "vitest run --coverage",
     "dev": "yarn build --watch",
     "build": "rimraf dist && tsup",
     "build:prod": "cross-env NODE_ENV=production yarn build",
