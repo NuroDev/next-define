@@ -4,7 +4,7 @@
     <br/>
     ❗
     <br />
-    package-template
+    next-define
     <br />
     <br />
     <br />
@@ -12,13 +12,13 @@
   </h1>
   <sup>
     <br />
-    Template project to build a new NPM package using TypeScript</em>
+    Fully typed `define` functions for Next.js</em>
     <br />
     <br />
   
-[![Package Version](https://img.shields.io/npm/v/package-template?label=%20&style=for-the-badge)](https://www.npmjs.com/package/package-template)
-[![Package Monthly Downloads](https://img.shields.io/npm/dm/package-template?color=blue&label=%20&style=for-the-badge)](https://www.npmjs.com/package/package-template)
-[![Docs](https://img.shields.io/badge/-Docs-blue.svg?style=for-the-badge)](https://github.com/nurodev/package-template)
+[![Package Version](https://img.shields.io/npm/v/next-define?label=%20&style=for-the-badge)](https://www.npmjs.com/package/next-define)
+[![Package Monthly Downloads](https://img.shields.io/npm/dm/next-define?color=blue&label=%20&style=for-the-badge)](https://www.npmjs.com/package/next-define)
+[![Docs](https://img.shields.io/badge/-Docs-blue.svg?style=for-the-badge)](https://github.com/nurodev/next-define)
 
   </sup>
   <br />
@@ -31,21 +31,21 @@ Install it locally in your project
 
 ```bash
 # npm
-npm install package-template
+npm install next-define
 
 # yarn
-yarn add package-template
+yarn add next-define
 
 # pnpm
-pnpm install package-template
+pnpm install next-define
 ```
 
 ## 🦄 Usage
 
 ```typescript
 // ESM
-import { } from 'package-template'
+import {} from "next-define";
 
 // CommonJS
-const { } = require('package-template')
+const {} = require("next-define");
 ```
