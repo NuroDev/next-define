@@ -33,7 +33,18 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./app": {
+      "import": "./dist/app.mjs",
+      "require": "./dist/app.js"
+    },
     "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "app": [
+        "./dist/app.d.ts"
+      ]
+    }
   },
   "scripts": {
     "dev": "yarn build --watch",
