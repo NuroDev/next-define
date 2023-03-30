@@ -1,1 +1,1 @@
-export { definePage } from "./page.action";
+export { page } from "./page.action";

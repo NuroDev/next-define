@@ -1,42 +1,88 @@
-import type { FunctionComponent } from "react";
+import type { FC } from "react";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
+  GetStaticProps,
   PreviewData,
 } from "next";
 import type { ParsedUrlQuery } from "querystring";
 
-import type { Awaitable, ReactProps } from "~/shared";
+import type { Awaitable } from "~/shared";
 
 // Note: We custom alias here to update the return type
 // to allow it to optionally return a promise.
 type GetServerSideProps<
-  TProps extends Record<string, any> = Record<string, any>,
+  TProps extends Record<string, unknown>,
   TQuery extends ParsedUrlQuery = ParsedUrlQuery,
   TData extends PreviewData = PreviewData
 > = (
   context: GetServerSidePropsContext<TQuery, TData>
 ) => Awaitable<GetServerSidePropsResult<TProps>>;
 
-interface BasePage<T extends Record<string, unknown>> {
-  Component: FunctionComponent<T>;
+interface PageOptions<
+  TProps extends Record<string, unknown> = Record<string, unknown>
+> {
+  Component: FC<TProps>;
 }
 
-interface BasicPage<T extends ReactProps> extends BasePage<T> {}
-
-interface ServerSidePage<T extends ReactProps> extends BasePage<T> {
-  getServerSideProps: GetServerSideProps<T>;
+interface SSRPageOptions<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TQuery extends ParsedUrlQuery = ParsedUrlQuery,
+  TData extends PreviewData = PreviewData,
+  TSSRHandler extends GetServerSideProps<
+    TProps,
+    TQuery,
+    TData
+  > = GetServerSideProps<TProps, TQuery, TData>
+> extends PageOptions<
+    TSSRHandler extends GetServerSideProps<infer TSSRHandlerReturn>
+      ? TSSRHandlerReturn
+      : TProps
+  > {
+  getServerSideProps: TSSRHandler;
 }
 
-export function definePage<T extends Record<string, unknown>>(
-  page: BasicPage<T>
-): BasicPage<T>;
-export function definePage<T extends Record<string, unknown>>(
-  page: ServerSidePage<T>
-): ServerSidePage<T>;
-export function definePage<T extends Record<string, unknown>>(
-  page: BasicPage<T> | ServerSidePage<T>
-): BasicPage<T> | ServerSidePage<T> {
-  return page;
+interface StaticPropsPageOptions<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TParams extends ParsedUrlQuery = ParsedUrlQuery,
+  TData extends PreviewData = PreviewData,
+  TGSPHandler extends GetStaticProps<TProps, TParams, TData> = GetStaticProps<
+    TProps,
+    TParams,
+    TData
+  >
+> extends PageOptions<
+    TGSPHandler extends GetStaticProps<infer TGSPHandlerReturn>
+      ? TGSPHandlerReturn
+      : TProps
+  > {
+  getStaticProps: TGSPHandler;
 }
 
+export function page<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TQuery extends ParsedUrlQuery = ParsedUrlQuery,
+  TData extends PreviewData = PreviewData,
+  TReturnProps = SSRPageOptions<TProps, TQuery, TData>["Component"],
+  TComponent extends FC<TReturnProps> = FC<TReturnProps>
+>(options: SSRPageOptions<TProps, TQuery, TData>): typeof options;
+
+export function page<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TParams extends ParsedUrlQuery = ParsedUrlQuery,
+  TData extends PreviewData = PreviewData,
+  TComponent extends () => JSX.Element = () => JSX.Element
+>(options: StaticPropsPageOptions<TProps>): typeof options;
+
+// export function page<
+//   TComponent extends () => JSX.Element = () => JSX.Element
+// >(options: { Component: TComponent }): typeof options;
+
+export function page<
+  TProps extends Record<string, unknown> = Record<string, unknown>,
+  TComponent extends FC<TProps> = FC<TProps>
+>(options: PageOptions<TProps>): typeof options;
+
+export function page(options: PageOptions | SSRPageOptions) {
+  return options;
+}

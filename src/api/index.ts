@@ -1,1 +1,1 @@
-export { defineApi } from "./api.action";
+export { api } from "./api.action";
