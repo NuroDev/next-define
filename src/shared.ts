@@ -49,3 +49,40 @@ interface Twitter {
   handle?: string;
   site?: string;
 }
+
+type ByteFormatStr = "b" | "gb" | "kb" | "mb" | "pb" | "tb";
+type ByteSize = `${number}${ByteFormatStr}`;
+
+type Region =
+  | "arn1"
+  | "bom1"
+  | "cdg1"
+  | "cle1"
+  | "cpt1"
+  | "dub1"
+  | "fra1"
+  | "gru1"
+  | "hkg1"
+  | "hnd1"
+  | "iad1"
+  | "icn1"
+  | "kix1"
+  | "lhr1"
+  | "pdx1"
+  | "sfo1"
+  | "sin1"
+  | "syd1";
+
+export interface NextApiConfig {
+  api?: {
+    bodyParser?:
+      | false
+      | {
+          sizeLimit: ByteSize;
+        };
+    externalResolver?: boolean;
+    responseLimit?: ByteSize;
+  };
+  runtime?: "edge" | "nodejs";
+  regions?: Array<Region>;
+}
