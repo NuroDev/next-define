@@ -1,5 +1,9 @@
 export type Awaitable<T> = T | Promise<T>;
 
+export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
+
+export type ArrayElement<A> = A extends ReadonlyArray<infer T> ? T : never;
+
 export type ParamsValue = string | number | boolean;
 
 interface OpenGraph {
