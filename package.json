@@ -74,10 +74,10 @@
   },
   "peerDependenciesMeta": {
     "next": {
-      "optional": true
+      "optional": false
     },
     "react": {
-      "optional": true
+      "optional": false
     }
   }
 }
