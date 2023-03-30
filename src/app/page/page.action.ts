@@ -1,9 +1,5 @@
 import type { FC } from "react";
-import type { ArrayElement, ParamsValue, UnwrapPromise } from "~/shared";
-
-type GenerateStaticParamsFn<TParams extends Array<unknown>> = () =>
-  | TParams
-  | Promise<TParams>;
+import type { ParamsValue } from "~/shared";
 
 interface NextPageProps<TParams, TSearchParams> {
   /**
@@ -27,26 +23,11 @@ interface NextPageProps<TParams, TSearchParams> {
   searchParams?: TSearchParams;
 }
 
-interface NextPagePropsFromGenerateStaticParams<TParams, TSearchParams> {
-  /**
-   * **params**
-   *
-   * The dynamic route params object from the root segment down that to that page.
-   *
-   * @see https://beta.nextjs.org/docs/api-reference/file-conventions/page#props
-   */
-  params: TParams;
-
-  /**
-   * **searchParams** (Optional)
-   *
-   * The URL search params object.
-   *
-   * @see https://beta.nextjs.org/docs/api-reference/file-conventions/page#props
-   *
-   * @example `acme.com/?q=cat` → `{ q: "cat" }`
-   */
-  searchParams?: TSearchParams;
+interface NextPage<
+  TParams extends Record<string, unknown> = Record<string, unknown>,
+  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>
+> {
+  Component: FC<NextPageProps<TParams, TSearchParams>>;
 }
 
 /**
@@ -54,7 +35,7 @@ interface NextPagePropsFromGenerateStaticParams<TParams, TSearchParams> {
  *
  * This is the page. It is used to render the route segments.
  *
- * @see https://beta.nextjs.org/docs/api-reference/file-conventions/page
+ * @see https://beta.nextjs.org/docs/optimizing/metadata
  *
  * @param Component - The page component.
  *
@@ -73,17 +54,9 @@ interface NextPagePropsFromGenerateStaticParams<TParams, TSearchParams> {
  * ```tsx
  * import { page } from "next-define/app";
  *
- * export async function generateStaticParams() {
- * return [
- *    { id: "1" },
- *    { id: "2" },
- *    { id: "3" },
- *  ];
- * }
- *
- * export default page<typeof generateStaticParams>(({ params, searchParams }) => (
+ * export default page<{ foo: string }>(({ params, searchParams }) => (
  *  <div>
- *   <h1>My Page</h1>
+ *   <h1>Hello {params?.foo}</h1>
  *  </div>
  * ));
  * ```
@@ -91,38 +64,8 @@ interface NextPagePropsFromGenerateStaticParams<TParams, TSearchParams> {
  * @returns The page component.
  */
 export function page<
-  TParams extends Record<string, unknown> = Record<string, ParamsValue>,
-  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>,
-  TComponent extends FC<NextPageProps<TParams, TSearchParams>> = FC<
-    NextPageProps<TParams, TSearchParams>
-  >
->(Component: TComponent): TComponent;
-
-export function page<
-  TGenerateStaticParams extends
-    | GenerateStaticParamsFn<TParams>
-    | undefined = undefined,
-  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>,
-  TParams extends Array<unknown> = Array<unknown>,
-  TComponent extends FC<
-    NextPagePropsFromGenerateStaticParams<
-      TGenerateStaticParams extends GenerateStaticParamsFn<TParams>
-        ? ArrayElement<UnwrapPromise<ReturnType<TGenerateStaticParams>>>
-        : Record<string, ParamsValue> | undefined,
-      TSearchParams
-    >
-  > = FC<
-    NextPagePropsFromGenerateStaticParams<
-      TGenerateStaticParams extends GenerateStaticParamsFn<TParams>
-        ? ArrayElement<UnwrapPromise<ReturnType<TGenerateStaticParams>>>
-        : Record<string, ParamsValue> | undefined,
-      TSearchParams
-    >
-  >
->(Component: TComponent): TComponent;
-
-export function page<
-  TComponent extends FC<Record<string, unknown>> = FC<Record<string, unknown>>
->(Component: TComponent) {
-  return Component;
+  TParams extends Record<string, unknown> = Record<string, unknown>,
+  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>
+>(options: NextPage<TParams, TSearchParams>): NextPage<TParams, TSearchParams> {
+  return options;
 }
