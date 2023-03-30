@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import type { ArrayElement, ParamsValue, UnwrapPromise } from "~/shared";
 
 type GenerateStaticParamsFn<TParams extends Array<unknown>> = () =>
@@ -92,11 +93,9 @@ interface NextPagePropsFromGenerateStaticParams<TParams, TSearchParams> {
 export function page<
   TParams extends Record<string, unknown> = Record<string, ParamsValue>,
   TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>,
-  TComponent extends (
-    props: NextPageProps<TParams, TSearchParams>
-  ) => JSX.Element = (
-    props: NextPageProps<TParams, TSearchParams>
-  ) => JSX.Element
+  TComponent extends FC<NextPageProps<TParams, TSearchParams>> = FC<
+    NextPageProps<TParams, TSearchParams>
+  >
 >(Component: TComponent): TComponent;
 
 export function page<
@@ -105,25 +104,25 @@ export function page<
     | undefined = undefined,
   TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>,
   TParams extends Array<unknown> = Array<unknown>,
-  TComponent extends (
-    props: NextPagePropsFromGenerateStaticParams<
+  TComponent extends FC<
+    NextPagePropsFromGenerateStaticParams<
       TGenerateStaticParams extends GenerateStaticParamsFn<TParams>
         ? ArrayElement<UnwrapPromise<ReturnType<TGenerateStaticParams>>>
         : Record<string, ParamsValue> | undefined,
       TSearchParams
     >
-  ) => JSX.Element = (
-    props: NextPagePropsFromGenerateStaticParams<
+  > = FC<
+    NextPagePropsFromGenerateStaticParams<
       TGenerateStaticParams extends GenerateStaticParamsFn<TParams>
         ? ArrayElement<UnwrapPromise<ReturnType<TGenerateStaticParams>>>
         : Record<string, ParamsValue> | undefined,
       TSearchParams
     >
-  ) => JSX.Element
+  >
 >(Component: TComponent): TComponent;
 
 export function page<
-  TComponent extends (props: any) => JSX.Element = (props: any) => JSX.Element
+  TComponent extends FC<Record<string, unknown>> = FC<Record<string, unknown>>
 >(Component: TComponent) {
   return Component;
 }
