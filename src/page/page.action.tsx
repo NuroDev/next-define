@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
+  // GetStaticPaths,
   GetStaticProps,
   PreviewData,
 } from "next";
@@ -12,82 +13,65 @@ import type { Awaitable } from "~/shared";
 // Note: We custom alias here to update the return type
 // to allow it to optionally return a promise.
 type GetServerSideProps<
-  TProps extends Record<string, any>,
-  TQuery extends ParsedUrlQuery = ParsedUrlQuery,
-  TData extends PreviewData = PreviewData
+  TProps extends Record<string, any> = Record<string, any>,
+  TParams extends ParsedUrlQuery = ParsedUrlQuery,
+  TPreview extends PreviewData = PreviewData
 > = (
-  context: GetServerSidePropsContext<TQuery, TData>
+  context: GetServerSidePropsContext<TParams, TPreview>
 ) => Awaitable<GetServerSidePropsResult<TProps>>;
 
 interface PageOptions<
   TProps extends Record<string, any> = Record<string, any>
 > {
   Component: FC<TProps>;
+  getServerSideProps?: never;
+  getStaticProps?: never;
 }
 
-interface SSRPageOptions<
+interface GetServerSidePagePageOptions<
   TProps extends Record<string, any> = Record<string, any>,
-  TQuery extends ParsedUrlQuery = ParsedUrlQuery,
-  TData extends PreviewData = PreviewData,
-  TSSRHandler extends GetServerSideProps<
-    TProps,
-    TQuery,
-    TData
-  > = GetServerSideProps<TProps, TQuery, TData>
-> extends PageOptions<
-    TSSRHandler extends GetServerSideProps<infer TSSRHandlerReturn>
+  TGetServerSidePropsHandler extends GetServerSideProps<TProps> = GetServerSideProps<TProps>
+> {
+  Component: FC<
+    TGetServerSidePropsHandler extends GetServerSideProps<
+      infer TSSRHandlerReturn
+    >
       ? TSSRHandlerReturn
       : TProps
-  > {
-  getServerSideProps: TSSRHandler;
+  >;
+  getServerSideProps: TGetServerSidePropsHandler;
 }
 
-interface StaticPropsPageOptions<
+interface GetStaticPropsPageOptions<
   TProps extends Record<string, any> = Record<string, any>,
-  TParams extends ParsedUrlQuery = ParsedUrlQuery,
-  TData extends PreviewData = PreviewData,
-  TGSPHandler extends GetStaticProps<TProps, TParams, TData> = GetStaticProps<
-    TProps,
-    TParams,
-    TData
-  >
-> extends PageOptions<
-    TGSPHandler extends GetStaticProps<infer TGSPHandlerReturn>
+  TGetStaticPropsHandler extends GetStaticProps<TProps> = GetStaticProps<TProps>
+> {
+  Component: FC<
+    TGetStaticPropsHandler extends GetStaticProps<infer TGSPHandlerReturn>
       ? TGSPHandlerReturn
       : TProps
-  > {
-  getStaticProps: TGSPHandler;
+  >;
+  getStaticProps: TGetStaticPropsHandler;
 }
 
-export function page<
-  TProps extends Record<string, any> = Record<string, any>,
-  TQuery extends ParsedUrlQuery = ParsedUrlQuery,
-  TData extends PreviewData = PreviewData,
-  TReturnProps = SSRPageOptions<TProps, TQuery, TData>["Component"],
-  TComponent extends FC<TReturnProps> = FC<TReturnProps>
->(options: SSRPageOptions<TProps, TQuery, TData>): typeof options;
-
-export function page<
-  TProps extends Record<string, any> = Record<string, any>,
-  TParams extends ParsedUrlQuery = ParsedUrlQuery,
-  TData extends PreviewData = PreviewData,
-  TComponent extends () => JSX.Element = () => JSX.Element
->(options: StaticPropsPageOptions<TProps>): typeof options;
-
-// export function page<
-//   TComponent extends () => JSX.Element = () => JSX.Element
-// >(options: { Component: TComponent }): typeof options;
-
-export function page<
-  TProps extends Record<string, any> = Record<string, any>,
-  TComponent extends FC<TProps> = FC<TProps>
->(
-  options: PageOptions<TProps> & {
-    getServerSideProps?: never;
-    getStaticProps?: never;
-  }
+export function page<TProps extends Record<string, any>>(
+  options: GetServerSidePagePageOptions<TProps>
 ): typeof options;
 
-export function page(options: PageOptions | SSRPageOptions) {
+export function page<TProps extends Record<string, any> = Record<string, any>>(
+  options: GetStaticPropsPageOptions<TProps>
+): typeof options;
+
+export function page<
+  TProps extends Record<string, any> = Record<string, any>,
+  TOptions extends PageOptions<TProps> = PageOptions<TProps>
+>(options: TOptions): TOptions;
+
+export function page(
+  options:
+    | PageOptions
+    | GetServerSidePagePageOptions
+    | GetStaticPropsPageOptions
+) {
   return options;
 }
