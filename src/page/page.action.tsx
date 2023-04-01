@@ -81,7 +81,12 @@ export function page<
 export function page<
   TProps extends Record<string, any> = Record<string, any>,
   TComponent extends FC<TProps> = FC<TProps>
->(options: PageOptions<TProps>): typeof options;
+>(
+  options: PageOptions<TProps> & {
+    getServerSideProps?: never;
+    getStaticProps?: never;
+  }
+): typeof options;
 
 export function page(options: PageOptions | SSRPageOptions) {
   return options;
