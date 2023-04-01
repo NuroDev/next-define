@@ -13,6 +13,8 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
+
+    // TODO: Add type tests
   });
 
   it("Just a basic page component with typed props", () => {
@@ -32,6 +34,8 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
+
+    // TODO: Add type tests
   });
 
   it("A page component with `getServerSideProps`", () => {
@@ -61,6 +65,8 @@ describe("page", () => {
     expect(getServerSideProps).toBeDefined();
     expect(getServerSideProps).toBeInstanceOf(Function);
     expect(getServerSideProps).toMatchSnapshot(() => ({ props }));
+
+    // TODO: Add type tests
   });
 
   it("A page component with `getStaticProps`", () => {
@@ -90,5 +96,7 @@ describe("page", () => {
     expect(getStaticProps).toBeDefined();
     expect(getStaticProps).toBeInstanceOf(Function);
     expect(getStaticProps).toMatchSnapshot(() => ({ props }));
+
+    // TODO: Add type tests
   });
 });
