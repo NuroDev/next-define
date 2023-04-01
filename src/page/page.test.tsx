@@ -22,13 +22,16 @@ describe("page", () => {
       foo: string;
     }
 
-    const { Component } = page<Props>({
-      Component: () => <>Hello World</>,
-    });
-
     const props = {
       foo: "bar",
     } satisfies Props;
+
+    const { Component } = page<Props>({
+      Component: (p) => {
+        expect(p).toEqual(props);
+        return <>Hello World</>;
+      },
+    });
 
     const ComponentJson = renderer.create(<Component {...props} />).toJSON();
     expect(ComponentJson).toBeDefined();
