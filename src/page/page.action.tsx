@@ -33,10 +33,9 @@ interface GetServerSidePagePageOptions<
   TGetServerSidePropsHandler extends GetServerSideProps<TProps> = GetServerSideProps<TProps>
 > {
   Component: FC<
-    TGetServerSidePropsHandler extends GetServerSideProps<
-      infer TSSRHandlerReturn
-    >
-      ? TSSRHandlerReturn
+    // TODO: Fix this type comparison to fix the inferred type if a parameter is passed
+    TGetServerSidePropsHandler extends GetServerSideProps<infer TInferredProps>
+      ? TInferredProps
       : TProps
   >;
   getServerSideProps: TGetServerSidePropsHandler;
@@ -47,31 +46,24 @@ interface GetStaticPropsPageOptions<
   TGetStaticPropsHandler extends GetStaticProps<TProps> = GetStaticProps<TProps>
 > {
   Component: FC<
-    TGetStaticPropsHandler extends GetStaticProps<infer TGSPHandlerReturn>
-      ? TGSPHandlerReturn
+    // TODO: Fix this type comparison to fix the inferred type if a parameter is passed
+    TGetStaticPropsHandler extends GetStaticProps<infer TInferredProps>
+      ? TInferredProps
       : TProps
   >;
   getStaticProps: TGetStaticPropsHandler;
 }
 
-export function page<TProps extends Record<string, any>>(
-  options: GetServerSidePagePageOptions<TProps>
-): typeof options;
+// prettier-ignore
+export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetServerSidePagePageOptions<TProps>): typeof options;
 
-export function page<TProps extends Record<string, any> = Record<string, any>>(
-  options: GetStaticPropsPageOptions<TProps>
-): typeof options;
+// prettier-ignore
+export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPropsPageOptions<TProps>): typeof options;
 
-export function page<
-  TProps extends Record<string, any> = Record<string, any>,
-  TOptions extends PageOptions<TProps> = PageOptions<TProps>
->(options: TOptions): TOptions;
+// prettier-ignore
+export function page<TProps extends Record<string, any> = Record<string, any>>(options: PageOptions<TProps>): typeof options;
 
-export function page(
-  options:
-    | PageOptions
-    | GetServerSidePagePageOptions
-    | GetStaticPropsPageOptions
-) {
+// prettier-ignore
+export function page(options: PageOptions | GetServerSidePagePageOptions | GetStaticPropsPageOptions) {
   return options;
 }
