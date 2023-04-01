@@ -24,8 +24,8 @@ interface PageOptions<
   TProps extends Record<string, any> = Record<string, any>
 > {
   Component: FC<TProps>;
-  getServerSideProps?: never;
-  getStaticProps?: never;
+  getServerSideProps?: GetServerSideProps;
+  getStaticProps?: GetStaticProps;
 }
 
 interface GetServerSidePagePageOptions<
