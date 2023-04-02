@@ -1,4 +1,4 @@
-interface NextErrorPageProps {
+export interface NextErrorPageProps {
   /**
    * **Error**
    *
