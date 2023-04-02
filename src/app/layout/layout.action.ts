@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import type { ParamsValue } from "~/shared";
 
-interface NextLayoutProps<TParams = Record<string, ParamsValue>> {
+export interface NextLayoutProps<TParams = Record<string, ParamsValue>> {
   /**
    * **Children**
    *
