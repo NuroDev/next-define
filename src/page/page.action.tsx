@@ -2,7 +2,6 @@ import type { FC } from "react";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
-  // GetStaticPaths,
   GetStaticProps,
   PreviewData,
 } from "next";
@@ -33,7 +32,6 @@ interface GetServerSidePagePageOptions<
   TGetServerSidePropsHandler extends GetServerSideProps<TProps> = GetServerSideProps<TProps>
 > {
   Component: FC<
-    // TODO: Fix this type comparison to fix the inferred type if a parameter is passed
     TGetServerSidePropsHandler extends GetServerSideProps<infer TInferredProps>
       ? TInferredProps
       : TProps
@@ -46,7 +44,6 @@ interface GetStaticPropsPageOptions<
   TGetStaticPropsHandler extends GetStaticProps<TProps> = GetStaticProps<TProps>
 > {
   Component: FC<
-    // TODO: Fix this type comparison to fix the inferred type if a parameter is passed
     TGetStaticPropsHandler extends GetStaticProps<infer TInferredProps>
       ? TInferredProps
       : TProps
