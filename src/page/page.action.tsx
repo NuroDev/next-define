@@ -31,6 +31,7 @@ interface GetServerSidePagePageOptions<
   TProps extends Record<string, any> = Record<string, any>,
   TGetServerSidePropsHandler extends GetServerSideProps<TProps> = GetServerSideProps<TProps>
 > {
+  // TODO: Fix this type inference
   Component: FC<
     TGetServerSidePropsHandler extends GetServerSideProps<infer TInferredProps>
       ? TInferredProps
@@ -43,6 +44,7 @@ interface GetStaticPropsPageOptions<
   TProps extends Record<string, any> = Record<string, any>,
   TGetStaticPropsHandler extends GetStaticProps<TProps> = GetStaticProps<TProps>
 > {
+  // TODO: Fix this type inference
   Component: FC<
     TGetStaticPropsHandler extends GetStaticProps<infer TInferredProps>
       ? TInferredProps
@@ -51,12 +53,15 @@ interface GetStaticPropsPageOptions<
   getStaticProps: TGetStaticPropsHandler;
 }
 
+// TODO: Add JSDoc comments
 // prettier-ignore
 export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetServerSidePagePageOptions<TProps>): typeof options;
 
+// TODO: Add JSDoc comments
 // prettier-ignore
 export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPropsPageOptions<TProps>): typeof options;
 
+// TODO: Add JSDoc comments
 // prettier-ignore
 export function page<TProps extends Record<string, any> = Record<string, any>>(options: PageOptions<TProps>): typeof options;
 
