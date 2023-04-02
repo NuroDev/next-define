@@ -1,7 +1,10 @@
 import type { FC } from "react";
 import type { ParamsValue } from "~/shared";
 
-interface NextPageProps<TParams, TSearchParams> {
+export interface NextPageProps<
+  TParams extends Record<string, any> = Record<string, ParamsValue>,
+  TSearchParams extends Record<string, any> = Record<string, ParamsValue>
+> {
   /**
    * **params** (Optional)
    *
@@ -21,13 +24,6 @@ interface NextPageProps<TParams, TSearchParams> {
    * @example `acme.com/?q=cat` → `{ q: "cat" }`
    */
   searchParams?: TSearchParams;
-}
-
-interface NextPage<
-  TParams extends Record<string, unknown> = Record<string, unknown>,
-  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>
-> {
-  Component: FC<NextPageProps<TParams, TSearchParams>>;
 }
 
 /**
@@ -64,8 +60,8 @@ interface NextPage<
  * @returns The page component.
  */
 export function page<
-  TParams extends Record<string, unknown> = Record<string, unknown>,
-  TSearchParams extends Record<string, unknown> = Record<string, ParamsValue>
->(options: NextPage<TParams, TSearchParams>): NextPage<TParams, TSearchParams> {
-  return options;
+  TParams extends Record<string, any> = Record<string, any>,
+  TSearchParams extends Record<string, any> = Record<string, ParamsValue>
+>(Component: FC<NextPageProps<TParams, TSearchParams>>): typeof Component {
+  return Component;
 }
