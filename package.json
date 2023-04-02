@@ -31,11 +31,13 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./app": {
       "import": "./dist/app.mjs",
-      "require": "./dist/app.js"
+      "require": "./dist/app.js",
+      "types": "./dist/app.d.ts"
     },
     "./package.json": "./package.json"
   },
