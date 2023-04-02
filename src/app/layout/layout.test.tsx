@@ -25,4 +25,30 @@ describe("layout", () => {
     expect(ComponentJson).toMatchSnapshot();
     expectTypeOf(Component).toMatchTypeOf<FC<NextLayoutProps>>();
   });
+
+  it("Just a basic layout wrapper component with typed parameters", () => {
+    interface Params {
+      foo: string;
+    }
+
+    const params = {
+      foo: "bar",
+    } satisfies Params;
+
+    const Component = layout<Params>(({ children, params }) => {
+      expect(params).toBeDefined();
+      expect(params).toBe(params);
+      expectTypeOf(children).toMatchTypeOf<ReactNode>();
+
+      return <>{children}</>;
+    });
+
+    const ComponentJson = renderer
+      .create(<Component children={<></>} params={params} />)
+      .toJSON();
+    expect(ComponentJson).toBeDefined();
+    expect(ComponentJson).not.toBeInstanceOf(Array);
+    expect(ComponentJson).toMatchSnapshot();
+    expectTypeOf(Component).toMatchTypeOf<FC<NextLayoutProps<Params>>>();
+  });
 });
