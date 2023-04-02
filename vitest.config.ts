@@ -15,5 +15,8 @@ export default defineConfig({
     deps: {
       inline: ["minifaker"],
     },
+    typecheck: {
+      include: ["src/**/*.test.{js,ts,jsx,tsx}"],
+    },
   },
 });
