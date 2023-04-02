@@ -28,6 +28,9 @@
     "LICENSE",
     "README.md"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
