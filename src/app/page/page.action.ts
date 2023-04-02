@@ -26,6 +26,16 @@ export interface NextPageProps<
   searchParams?: TSearchParams;
 }
 
+interface NextPage<
+  TParams extends Record<string, any> = Record<string, any>,
+  TSearchParams extends Record<string, any> = Record<string, ParamsValue>
+> {
+  Component: FC<NextPageProps<TParams, TSearchParams>>;
+  // TODO: Add `generateStaticParams` support.
+  // TODO: Add `metadata` support.
+  // TODO: Add `generateMetadata` support.
+}
+
 /**
  * **Page**
  *
@@ -62,6 +72,6 @@ export interface NextPageProps<
 export function page<
   TParams extends Record<string, any> = Record<string, any>,
   TSearchParams extends Record<string, any> = Record<string, ParamsValue>
->(Component: FC<NextPageProps<TParams, TSearchParams>>): typeof Component {
-  return Component;
+>(options: NextPage<TParams, TSearchParams>): NextPage<TParams, TSearchParams> {
+  return options;
 }

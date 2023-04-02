@@ -10,25 +10,27 @@ import type { ParamsValue } from "~/shared";
 
 describe("page", () => {
   it("Just a basic page component", () => {
-    const Component = page(({ params, searchParams }) => {
-      expect(params).toBeDefined();
-      expect(params).toBe({});
-      expectTypeOf(searchParams).toMatchTypeOf<
-        Record<string, ParamsValue> | undefined
-      >();
-      expect(searchParams).toBeDefined();
-      expect(searchParams).toBe({});
-      expectTypeOf(searchParams).toMatchTypeOf<
-        Record<string, ParamsValue> | undefined
-      >();
+    const { Component } = page({
+      Component: ({ params, searchParams }) => {
+        expect(params).toBeDefined();
+        expect(params).toBe({});
+        expectTypeOf(searchParams).toMatchTypeOf<
+          Record<string, ParamsValue> | undefined
+        >();
+        expect(searchParams).toBeDefined();
+        expect(searchParams).toBe({});
+        expectTypeOf(searchParams).toMatchTypeOf<
+          Record<string, ParamsValue> | undefined
+        >();
 
-      return (
-        <>
-          <h1>Page</h1>
-          <p>Params: {JSON.stringify(params)}</p>
-          <p>Search params: {JSON.stringify(searchParams)}</p>
-        </>
-      );
+        return (
+          <>
+            <h1>Page</h1>
+            <p>Params: {JSON.stringify(params)}</p>
+            <p>Search params: {JSON.stringify(searchParams)}</p>
+          </>
+        );
+      },
     });
 
     const ComponentJson = renderer
@@ -57,25 +59,27 @@ describe("page", () => {
       bar: "baz",
     } satisfies SearchParams;
 
-    const Component = page<Params>(({ params, searchParams }) => {
-      expect(params).toBeDefined();
-      expect(params).toBe({});
-      expectTypeOf(searchParams).toMatchTypeOf<
-        Record<string, ParamsValue> | undefined
-      >();
-      expect(searchParams).toBeDefined();
-      expect(searchParams).toBe({});
-      expectTypeOf(searchParams).toMatchTypeOf<
-        Record<string, ParamsValue> | undefined
-      >();
+    const { Component } = page<Params>({
+      Component: ({ params, searchParams }) => {
+        expect(params).toBeDefined();
+        expect(params).toBe({});
+        expectTypeOf(searchParams).toMatchTypeOf<
+          Record<string, ParamsValue> | undefined
+        >();
+        expect(searchParams).toBeDefined();
+        expect(searchParams).toBe({});
+        expectTypeOf(searchParams).toMatchTypeOf<
+          Record<string, ParamsValue> | undefined
+        >();
 
-      return (
-        <>
-          <h1>Page</h1>
-          <p>Params: {JSON.stringify(params)}</p>
-          <p>Search params: {JSON.stringify(searchParams)}</p>
-        </>
-      );
+        return (
+          <>
+            <h1>Page</h1>
+            <p>Params: {JSON.stringify(params)}</p>
+            <p>Search params: {JSON.stringify(searchParams)}</p>
+          </>
+        );
+      },
     });
 
     const ComponentJson = renderer
