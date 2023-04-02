@@ -1,6 +1,6 @@
 {
   "name": "next-define",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fully typed `define` functions for Next.js",
   "repository": {
     "type": "git",
