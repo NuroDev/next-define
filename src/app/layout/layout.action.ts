@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 
 import type { ParamsValue } from "~/shared";
 
-export interface NextLayoutProps<TParams = Record<string, ParamsValue>> {
+export interface NextLayoutProps<
+  TParams extends Record<string, any> = Record<string, ParamsValue>
+> {
   /**
    * **Children**
    *
@@ -45,7 +47,7 @@ export interface NextLayoutProps<TParams = Record<string, ParamsValue>> {
  * @returns The layout page component.
  */
 export function layout<
-  TParams extends Record<string, unknown>,
+  TParams extends Record<string, any>,
   TComponent extends (props: NextLayoutProps<TParams>) => JSX.Element = (
     props: NextLayoutProps<TParams>
   ) => JSX.Element
