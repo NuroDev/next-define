@@ -107,4 +107,52 @@ describe("page", () => {
 
     // TODO: Add type tests
   });
+
+  it("A page component with `getStaticProps` & `getStaticPaths`", () => {
+    interface Props {
+      slug: string;
+    }
+
+    const props = {
+      slug: "John Doe",
+    } satisfies Props;
+
+    const { Component, getStaticProps, getStaticPaths } = page({
+      getStaticPaths: () => ({
+        paths: [
+          {
+            params: { slug: "foo" },
+          },
+          {
+            params: { slug: "bar" },
+          },
+        ],
+        fallback: false,
+      }),
+      getStaticProps: () => ({
+        props,
+      }),
+      Component: (p) => {
+        expect(p).toEqual(props);
+        expectTypeOf(p).toMatchTypeOf<Props>();
+        return <>Hello {props.slug}</>;
+      },
+    });
+
+    const ComponentJson = renderer.create(<Component {...props} />).toJSON();
+    expect(ComponentJson).toBeDefined();
+    expect(ComponentJson).toBeInstanceOf(Array);
+    expect(ComponentJson).toMatchSnapshot();
+    expectTypeOf(Component).toMatchTypeOf<FC<Props>>();
+
+    expect(getStaticProps).toBeDefined();
+    expect(getStaticProps).toBeInstanceOf(Function);
+    expect(getStaticProps).toMatchSnapshot(() => ({ props }));
+
+    expect(getStaticPaths).toBeDefined();
+    expect(getStaticPaths).toBeInstanceOf(Function);
+    expect(getStaticPaths).toMatchSnapshot(() => ({ props }));
+
+    // TODO: Add type tests
+  });
 });
