@@ -42,13 +42,13 @@ pnpm install next-define
 
 ## 🦄 Usage
 
-To get started using `next-define`, you can import the `page` function from the package and use it to define your page.
+To get started using `next-define`, you can import the `definePage` function from the package and use it to define your page.
 
 ```typescript
 // pages/index.tsx
-import { page } from "next-define";
+import { definePage } from "next-define";
 
-export const { Component } = page({
+export const { Component } = definePage({
   Component: () => <>Hello World</>,
 });
 
@@ -57,9 +57,9 @@ export default Component;
 
 ```typescript
 // pages/index.tsx
-import { page } from "next-define";
+import { definePage } from "next-define";
 
-export const { Component, getStaticProps } = page({
+export const { Component, getStaticProps } = definePage({
   getStaticProps: () => ({ props: { name: "John" } }),
   Component: ({ name }) => <>Hello {name}</>,
 });
@@ -69,9 +69,9 @@ export default Component;
 
 ```typescript
 // pages/index.tsx
-import { page } from "next-define";
+import { definePage } from "next-define";
 
-export const { Component, getServerSideProps } = page({
+export const { Component, getServerSideProps } = definePage({
   getServerSideProps: () => ({ props: { name: "John" } }),
   Component: ({ name }) => <>Hello {name}</>,
 });
@@ -79,13 +79,13 @@ export const { Component, getServerSideProps } = page({
 export default Component;
 ```
 
-Or you can import `api` to define a new API route
+Or you can import `defineApi` to define a new API route
 
 ```typescript
 // pages/api/hello.ts
-import { api } from "next-define";
+import { defineApi } from "next-define";
 
-export default api((req, res) =>
+export default defineApi((req, res) =>
   res.status(200).json({
     name: "John",
   })
@@ -94,9 +94,9 @@ export default api((req, res) =>
 
 ```typescript
 // pages/api/hello.ts
-import { api } from "next-define";
+import { defineApi } from "next-define";
 
-export const { config, handler } = api(
+export const { config, handler } = defineApi(
   (req, res) =>
     res.status(200).json({
       name: "John",
@@ -113,32 +113,32 @@ We even offer support for the new app directory beta by importing from the `/app
 
 ```typescript
 // app/page.tsx
-import { page } from "next-define/app";
+import { definePage } from "next-define/app";
 
-export default page({
+export default definePage({
   Component: ({ params, searchParams }) => <>Hello World</>,
 });
 ```
 
 ```typescript
 // app/layout.tsx
-import { layout } from "next-define/app";
+import { defineLayout } from "next-define/app";
 
-export default layout(({ children, params }) => <>{children}</>);
+export default defineLayout(({ children, params }) => <>{children}</>);
 ```
 
 ```typescript
 // app/error.tsx
-import { error } from "next-define/app";
+import { defineError } from "next-define/app";
 
-export default error(({ error, reset }) => <></>);
+export default defineError(({ error, reset }) => <></>);
 ```
 
 ```typescript
 // app/hello/router.ts
-import { route } from "next-define/app";
+import { defineRoute } from "next-define/app";
 
-export const { get, runtime } = route({
+export const { get, runtime } = defineRoute({
   runtime: "edge",
   GET: (req, { params }) =>
     new Response(
