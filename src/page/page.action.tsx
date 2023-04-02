@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
+  GetStaticPaths,
   GetStaticProps,
   PreviewData,
 } from "next";
@@ -24,6 +25,7 @@ interface PageOptions<
 > {
   Component: FC<TProps>;
   getServerSideProps?: GetServerSideProps<TProps>;
+  getStaticPaths?: GetStaticPaths<TProps>;
   getStaticProps?: GetStaticProps<TProps>;
 }
 
@@ -53,6 +55,21 @@ interface GetStaticPropsPageOptions<
   getStaticProps: TGetStaticPropsHandler;
 }
 
+interface GetStaticPathsPageOptions<
+  TProps extends Record<string, any> = Record<string, any>,
+  TGetStaticPathsHandler extends GetStaticPaths<TProps> = GetStaticPaths<TProps>,
+  TGetStaticPropsHandler extends GetStaticProps<TProps> = GetStaticProps<TProps>
+> {
+  // TODO: Fix this type inference
+  Component: FC<
+    TGetStaticPropsHandler extends GetStaticProps<infer TInferredProps>
+      ? TInferredProps
+      : TProps
+  >;
+  getStaticPaths: TGetStaticPathsHandler;
+  getStaticProps: TGetStaticPropsHandler;
+}
+
 // TODO: Add JSDoc comments
 // prettier-ignore
 export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetServerSidePagePageOptions<TProps>): typeof options;
@@ -63,9 +80,13 @@ export function page<TProps extends Record<string, any> = Record<string, any>>(o
 
 // TODO: Add JSDoc comments
 // prettier-ignore
+export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPathsPageOptions<TProps>): typeof options;
+
+// TODO: Add JSDoc comments
+// prettier-ignore
 export function page<TProps extends Record<string, any> = Record<string, any>>(options: PageOptions<TProps>): typeof options;
 
 // prettier-ignore
-export function page(options: PageOptions | GetServerSidePagePageOptions | GetStaticPropsPageOptions) {
+export function page(options: PageOptions | GetServerSidePagePageOptions | GetStaticPropsPageOptions | GetStaticPathsPageOptions) {
   return options;
 }
