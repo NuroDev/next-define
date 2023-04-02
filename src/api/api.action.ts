@@ -63,9 +63,9 @@ type NextEdgeApiHandler<TResponse extends Response = Response> = (
  *
  * @returns The handler function
  */
-export function api<
-  TParams extends Record<string, unknown> = Record<string, unknown>
->(handler: NextApiHandler<TParams>): NextApiHandler<TParams>;
+export function api<TParams extends Record<string, any> = Record<string, any>>(
+  handler: NextApiHandler<TParams>
+): NextApiHandler<TParams>;
 
 /**
  * Define a Next.js API handler
@@ -104,7 +104,7 @@ export function api<
  * @returns The handler function
  */
 export function api<
-  TParams extends Record<string, unknown> = Record<string, unknown>,
+  TParams extends Record<string, any> = Record<string, any>,
   TConfig extends NextApiConfig = NextApiConfig,
   THandler extends
     | NextEdgeApiHandler
