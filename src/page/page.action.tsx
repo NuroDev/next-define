@@ -72,21 +72,21 @@ interface GetStaticPathsPageOptions<
 
 // TODO: Add JSDoc comments
 // prettier-ignore
-export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetServerSidePagePageOptions<TProps>): typeof options;
+export function definePage<TProps extends Record<string, any> = Record<string, any>>(options: GetServerSidePagePageOptions<TProps>): typeof options;
 
 // TODO: Add JSDoc comments
 // prettier-ignore
-export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPropsPageOptions<TProps>): typeof options;
+export function definePage<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPropsPageOptions<TProps>): typeof options;
 
 // TODO: Add JSDoc comments
 // prettier-ignore
-export function page<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPathsPageOptions<TProps>): typeof options;
+export function definePage<TProps extends Record<string, any> = Record<string, any>>(options: GetStaticPathsPageOptions<TProps>): typeof options;
 
 // TODO: Add JSDoc comments
 // prettier-ignore
-export function page<TProps extends Record<string, any> = Record<string, any>>(options: PageOptions<TProps>): typeof options;
+export function definePage<TProps extends Record<string, any> = Record<string, any>>(options: PageOptions<TProps>): typeof options;
 
 // prettier-ignore
-export function page(options: PageOptions | GetServerSidePagePageOptions | GetStaticPropsPageOptions | GetStaticPathsPageOptions) {
+export function definePage(options: PageOptions | GetServerSidePagePageOptions | GetStaticPropsPageOptions | GetStaticPathsPageOptions) {
   return options;
 }

@@ -1,7 +1,7 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
 import { NextResponse } from "next/server";
 
-import { api } from ".";
+import { defineApi } from ".";
 
 import type { NextApiHandler } from "next";
 import type { NextFetchEvent, NextRequest } from "next/server";
@@ -10,7 +10,7 @@ import type { NextApiConfig } from "~/shared";
 
 describe("api", () => {
   it("Node.js - Next.js API with default export", () => {
-    const handler = api((_req, res) =>
+    const handler = defineApi((_req, res) =>
       res.status(200).json({
         message: "Hello World",
       })
@@ -26,7 +26,7 @@ describe("api", () => {
       message: string;
     }
 
-    const handler = api<Params>((_req, res) =>
+    const handler = defineApi<Params>((_req, res) =>
       res.status(200).json({
         message: "Hello World",
       })
@@ -42,7 +42,7 @@ describe("api", () => {
       runtime: "nodejs",
     } satisfies NextApiConfig;
 
-    const { config, handler } = api(
+    const { config, handler } = defineApi(
       (_req, res) =>
         res.status(200).json({
           message: "Hello World",
@@ -65,7 +65,7 @@ describe("api", () => {
       runtime: "edge",
     } satisfies NextApiConfig;
 
-    const { config, handler } = api(
+    const { config, handler } = defineApi(
       (_req, _ctx) =>
         NextResponse.json({
           message: "Hello World",

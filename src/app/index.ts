@@ -1,13 +1,13 @@
-import { error } from "./error";
-import { layout } from "./layout";
-import { page } from "./page";
-import { route } from "./route";
+import { defineError } from "./error";
+import { defineLayout } from "./layout";
+import { definePage } from "./page";
+import { defineRoute } from "./route";
 
-export { error, layout, page, route };
+export { defineError, defineLayout, definePage, defineRoute };
 
 export default {
-  error,
-  layout,
-  page,
-  route,
+  defineError,
+  defineLayout,
+  definePage,
+  defineRoute,
 } as const;

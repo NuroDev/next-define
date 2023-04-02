@@ -1,7 +1,7 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
 import renderer from "react-test-renderer";
 
-import { error } from ".";
+import { defineError } from ".";
 
 import type { FC } from "react";
 
@@ -9,7 +9,7 @@ import type { NextErrorPageProps } from "./error.action";
 
 describe("error", () => {
   it("Create a basic error page component", () => {
-    const Component = error(({ error, reset }) => {
+    const Component = defineError(({ error, reset }) => {
       expect(error).toBeDefined();
       expect(error).toBeInstanceOf(Error);
       expect(reset).toBeDefined();

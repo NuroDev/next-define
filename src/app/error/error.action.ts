@@ -28,9 +28,9 @@ export interface NextErrorPageProps {
  *
  * @example
  * ```tsx
- * import { error } from "next-define/app";
+ * import { defineError } from "next-define/app";
  *
- * export default error(({ error, reset }) => (
+ * export default defineError(({ error, reset }) => (
  *    <>
  *      <h1>{error.message}</h1>
  *     <button onClick={reset}>Reset</button>
@@ -40,7 +40,7 @@ export interface NextErrorPageProps {
  *
  * @returns The error page component.
  */
-export function error<
+export function defineError<
   TComponent extends (props: NextErrorPageProps) => JSX.Element = (
     props: NextErrorPageProps
   ) => JSX.Element

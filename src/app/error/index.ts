@@ -1,1 +1,1 @@
-export { error } from "./error.action";
+export { defineError } from "./error.action";

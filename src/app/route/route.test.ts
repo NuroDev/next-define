@@ -1,14 +1,14 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
 import { NextResponse } from "next/server";
 
-import { route } from ".";
+import { defineRoute } from ".";
 
 import type { NextApiConfig } from "~/shared";
 import type { NextRouteHandler } from "./route.action";
 
 describe("route", () => {
   it("Node.js - A basic GET handler", () => {
-    const { GET } = route({
+    const { GET } = defineRoute({
       GET: (_req, _ctx) => NextResponse.json({ message: "Hello World" }),
     });
 
@@ -22,7 +22,7 @@ describe("route", () => {
       message: string;
     }
 
-    const { GET } = route<Params>({
+    const { GET } = defineRoute<Params>({
       GET: (_req, _ctx) => NextResponse.json({ message: "Hello World" }),
     });
 
@@ -34,7 +34,7 @@ describe("route", () => {
   });
 
   it("Edge - A basic GET handler using the `edge` runtime", () => {
-    const { GET, runtime } = route({
+    const { GET, runtime } = defineRoute({
       runtime: "edge",
       GET: (_req, _ctx) => NextResponse.json({ message: "Hello World" }),
     });

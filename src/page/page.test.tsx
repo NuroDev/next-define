@@ -1,13 +1,13 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
 import renderer from "react-test-renderer";
 
-import { page } from ".";
+import { definePage } from ".";
 
 import type { FC } from "react";
 
-describe("page", () => {
+describe("definePage", () => {
   it("Just a basic page component", () => {
-    const { Component } = page({
+    const { Component } = definePage({
       Component: () => <>Hello World</>,
     });
 
@@ -27,7 +27,7 @@ describe("page", () => {
       foo: "bar",
     } satisfies Props;
 
-    const { Component } = page<Props>({
+    const { Component } = definePage<Props>({
       Component: (p) => {
         expect(p).toEqual(props);
         expectTypeOf(p).toMatchTypeOf<Props>();
@@ -51,7 +51,7 @@ describe("page", () => {
       name: "John Doe",
     } satisfies Props;
 
-    const { Component, getServerSideProps } = page({
+    const { Component, getServerSideProps } = definePage({
       Component: (p) => {
         expect(p).toEqual(props);
         expectTypeOf(p).toMatchTypeOf<Props>();
@@ -84,7 +84,7 @@ describe("page", () => {
       name: "John Doe",
     } satisfies Props;
 
-    const { Component, getStaticProps } = page({
+    const { Component, getStaticProps } = definePage({
       Component: (p) => {
         expect(p).toEqual(props);
         expectTypeOf(p).toMatchTypeOf<Props>();
@@ -117,7 +117,7 @@ describe("page", () => {
       slug: "John Doe",
     } satisfies Props;
 
-    const { Component, getStaticProps, getStaticPaths } = page({
+    const { Component, getStaticProps, getStaticPaths } = definePage({
       getStaticPaths: () => ({
         paths: [
           {

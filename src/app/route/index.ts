@@ -1,1 +1,1 @@
-export { route } from "./route.action";
+export { defineRoute } from "./route.action";

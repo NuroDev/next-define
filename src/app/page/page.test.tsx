@@ -1,7 +1,7 @@
 import { describe, it, expect, expectTypeOf } from "vitest";
 import renderer from "react-test-renderer";
 
-import { page } from ".";
+import { definePage } from ".";
 
 import type { FC } from "react";
 
@@ -10,7 +10,7 @@ import type { ParamsValue } from "~/shared";
 
 describe("page", () => {
   it("Create a basic page component", () => {
-    const { Component } = page({
+    const { Component } = definePage({
       Component: ({ params, searchParams }) => {
         expect(params).toBeDefined();
         expect(params).toBeInstanceOf(Object);
@@ -58,7 +58,7 @@ describe("page", () => {
       bar: "baz",
     } satisfies SearchParams;
 
-    const { Component } = page<Params>({
+    const { Component } = definePage<Params>({
       Component: ({ params, searchParams }) => {
         expect(params).toBeDefined();
         expect(params).toBe(params);

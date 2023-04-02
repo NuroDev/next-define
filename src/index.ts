@@ -1,9 +1,9 @@
-import { api } from "./api";
-import { page } from "./page";
+import { defineApi } from "./api";
+import { definePage } from "./page";
 
-export { api, page };
+export { defineApi, definePage };
 
 export default {
-  api,
-  page,
+  defineApi,
+  definePage,
 } as const;

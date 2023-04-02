@@ -41,9 +41,9 @@ type NextEdgeApiHandler<TResponse extends Response = Response> = (
  *
  * @example
  * ```ts
- * import { api } from 'next-define';
+ * import { defineApi } from 'next-define';
  *
- * export default api((req, res) => {
+ * export default defineApi((req, res) => {
  *  return res.status(200).json({
  * 		message: "Hello World"
  * 	});
@@ -52,9 +52,9 @@ type NextEdgeApiHandler<TResponse extends Response = Response> = (
  *
  * @example
  * ```ts
- * import { api } from 'next-define';
+ * import { defineApi } from 'next-define';
  *
- * export default api<{ foo: string }>((req, res) => {
+ * export default defineApi<{ foo: string }>((req, res) => {
  * 	return res.status(200).json({
  * 		foo: "bar"
  * 	});
@@ -63,9 +63,9 @@ type NextEdgeApiHandler<TResponse extends Response = Response> = (
  *
  * @returns The handler function
  */
-export function api<TParams extends Record<string, any> = Record<string, any>>(
-  handler: NextApiHandler<TParams>
-): NextApiHandler<TParams>;
+export function defineApi<
+  TParams extends Record<string, any> = Record<string, any>
+>(handler: NextApiHandler<TParams>): NextApiHandler<TParams>;
 
 /**
  * Define a Next.js API handler
@@ -79,9 +79,9 @@ export function api<TParams extends Record<string, any> = Record<string, any>>(
  *
  * @example
  * ```ts
- * import { api } from 'next-define';
+ * import { defineApi } from 'next-define';
  *
- * export const { config, handler } = api<{ foo: string }>(
+ * export const { config, handler } = defineApi<{ foo: string }>(
  *   (_req, res) => res.status(200).json({ message: "Hello World" }),
  *   {
  *     runtime: "nodejs",
@@ -91,9 +91,9 @@ export function api<TParams extends Record<string, any> = Record<string, any>>(
  *
  * @example
  * ```ts
- * import { api } from 'next-define';
+ * import { defineApi } from 'next-define';
  *
- * export const { config, handler } = api(
+ * export const { config, handler } = defineApi(
  *   (_req, _ctx) => new Response(JSON.stringify({ foo: "bar" })),
  *   {
  *     runtime: "edge",
@@ -103,7 +103,7 @@ export function api<TParams extends Record<string, any> = Record<string, any>>(
  *
  * @returns The handler function
  */
-export function api<
+export function defineApi<
   TParams extends Record<string, any> = Record<string, any>,
   TConfig extends NextApiConfig = NextApiConfig,
   THandler extends
@@ -119,7 +119,7 @@ export function api<
   handler: THandler;
 };
 
-export function api<T, U extends NextApiConfig = NextApiConfig>(
+export function defineApi<T, U extends NextApiConfig = NextApiConfig>(
   ...args:
     | [handler: NextApiHandler<T>]
     | [handler: NextApiHandler<T>, config?: U]

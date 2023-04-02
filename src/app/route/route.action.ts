@@ -37,9 +37,9 @@ type DefineAppRouteHandlerOptions<
  *
  * @example
  * ```ts
- * import { route } from 'next-define/app';
+ * import { defineRoute } from 'next-define/app';
  *
- * export const { get, runtime } = route({
+ * export const { get, runtime } = defineRoute({
  * 	runtime: 'edge',
  * 	GET: (_req, { params }) => new Response(JSON.stringify({ params })),
  * });
@@ -47,7 +47,7 @@ type DefineAppRouteHandlerOptions<
  *
  * @returns {TOptions} The options object.
  */
-export function route<
+export function defineRoute<
   TParams extends Record<string, any> = Record<string, any>,
   TResponse extends Response = Response,
   TOptions extends Partial<

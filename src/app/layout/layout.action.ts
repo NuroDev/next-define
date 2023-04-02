@@ -46,7 +46,7 @@ export interface NextLayoutProps<
  * ```
  * @returns The layout page component.
  */
-export function layout<
+export function defineLayout<
   TParams extends Record<string, any>,
   TComponent extends (props: NextLayoutProps<TParams>) => JSX.Element = (
     props: NextLayoutProps<TParams>

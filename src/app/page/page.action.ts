@@ -47,29 +47,33 @@ interface NextPage<
  *
  * @example
  * ```tsx
- * import { page } from "next-define/app";
+ * import { definePage } from "next-define/app";
  *
- * export default page(({ params, searchParams }) => (
- *  <div>
- *    <h1>My Page</h1>
- *  </div>
- * ));
+ * export default definePage({
+ *  ({ params, searchParams }) => (
+ *    <div>
+ *      <h1>Hello {params?.foo}</h1>
+ *    </div>
+ *  )
+ * });
  * ```
  *
  * @example
  * ```tsx
- * import { page } from "next-define/app";
+ * import { definePage } from "next-define/app";
  *
- * export default page<{ foo: string }>(({ params, searchParams }) => (
- *  <div>
- *   <h1>Hello {params?.foo}</h1>
- *  </div>
- * ));
+ * export default definePage<{ foo: string }>({
+ *  ({ params, searchParams }) => (
+ *    <div>
+ *      <h1>Hello {params?.foo}</h1>
+ *    </div>
+ *  )
+ * });
  * ```
  *
  * @returns The page component.
  */
-export function page<
+export function definePage<
   TParams extends Record<string, any> = Record<string, any>,
   TSearchParams extends Record<string, any> = Record<string, ParamsValue>
 >(options: NextPage<TParams, TSearchParams>): NextPage<TParams, TSearchParams> {

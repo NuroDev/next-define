@@ -1,1 +1,1 @@
-export { layout } from "./layout.action";
+export { defineLayout } from "./layout.action";
