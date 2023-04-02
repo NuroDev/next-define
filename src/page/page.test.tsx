@@ -1,7 +1,9 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, expectTypeOf } from "vitest";
 import renderer from "react-test-renderer";
 
 import { page } from ".";
+
+import type { FC } from "react";
 
 describe("page", () => {
   it("Just a basic page component", () => {
@@ -13,8 +15,7 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
-
-    // TODO: Add type tests
+    expectTypeOf(Component).toMatchTypeOf<FC<Record<string, any>>>();
   });
 
   it("Just a basic page component with typed props", () => {
@@ -29,6 +30,7 @@ describe("page", () => {
     const { Component } = page<Props>({
       Component: (p) => {
         expect(p).toEqual(props);
+        expectTypeOf(p).toMatchTypeOf<Props>();
         return <>Hello World</>;
       },
     });
@@ -37,8 +39,7 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
-
-    // TODO: Add type tests
+    expectTypeOf(Component).toMatchTypeOf<FC<Props>>();
   });
 
   it("A page component with `getServerSideProps`", () => {
@@ -53,6 +54,7 @@ describe("page", () => {
     const { Component, getServerSideProps } = page({
       Component: (p) => {
         expect(p).toEqual(props);
+        expectTypeOf(p).toMatchTypeOf<Props>();
         return <>Hello {props.name}</>;
       },
       getServerSideProps: () => ({
@@ -64,6 +66,7 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
+    expectTypeOf(Component).toMatchTypeOf<FC<Props>>();
 
     expect(getServerSideProps).toBeDefined();
     expect(getServerSideProps).toBeInstanceOf(Function);
@@ -84,6 +87,7 @@ describe("page", () => {
     const { Component, getStaticProps } = page({
       Component: (p) => {
         expect(p).toEqual(props);
+        expectTypeOf(p).toMatchTypeOf<Props>();
         return <>Hello {props.name}</>;
       },
       getStaticProps: () => ({
@@ -95,6 +99,7 @@ describe("page", () => {
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
+    expectTypeOf(Component).toMatchTypeOf<FC<Props>>();
 
     expect(getStaticProps).toBeDefined();
     expect(getStaticProps).toBeInstanceOf(Function);
