@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`error > Create a basic error page component 1`] = `
+[
+  <h1>
+    Error Page
+  </h1>,
+  <p />,
+  <button
+    onClick={[Function]}
+    type="button"
+  >
+    Retry
+  </button>,
+]
+`;

@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`page > Create a basic page component 1`] = `
+[
+  <h1>
+    Page
+  </h1>,
+  <p>
+    Params: 
+    {}
+  </p>,
+  <p>
+    Search params: 
+    {}
+  </p>,
+]
+`;
+
+exports[`page > Create a basic page component with typed parameters 1`] = `
+[
+  <h1>
+    Page
+  </h1>,
+  <p>
+    Params: 
+    {"foo":"bar"}
+  </p>,
+  <p>
+    Search params: 
+    {"bar":"baz"}
+  </p>,
+]
+`;

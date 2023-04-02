@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`layout > Create a basic layout wrapper component 1`] = `null`;
+
+exports[`layout > Create a basic layout wrapper component with typed parameters 1`] = `null`;

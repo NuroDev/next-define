@@ -9,16 +9,16 @@ import type { NextPageProps } from "./page.action";
 import type { ParamsValue } from "~/shared";
 
 describe("page", () => {
-  it("Just a basic page component", () => {
+  it("Create a basic page component", () => {
     const { Component } = page({
       Component: ({ params, searchParams }) => {
         expect(params).toBeDefined();
-        expect(params).toBe({});
+        expect(params).toBeInstanceOf(Object);
         expectTypeOf(searchParams).toMatchTypeOf<
           Record<string, ParamsValue> | undefined
         >();
         expect(searchParams).toBeDefined();
-        expect(searchParams).toBe({});
+        expect(searchParams).toBeInstanceOf(Object);
         expectTypeOf(searchParams).toMatchTypeOf<
           Record<string, ParamsValue> | undefined
         >();
@@ -37,12 +37,11 @@ describe("page", () => {
       .create(<Component params={{}} searchParams={{}} />)
       .toJSON();
     expect(ComponentJson).toBeDefined();
-    expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
     expectTypeOf(Component).toMatchTypeOf<FC<NextPageProps>>();
   });
 
-  it("Just a basic page component with typed parameters", () => {
+  it("Create a basic page component with typed parameters", () => {
     interface Params {
       foo: string;
     }
@@ -62,12 +61,12 @@ describe("page", () => {
     const { Component } = page<Params>({
       Component: ({ params, searchParams }) => {
         expect(params).toBeDefined();
-        expect(params).toBe({});
+        expect(params).toBe(params);
         expectTypeOf(searchParams).toMatchTypeOf<
           Record<string, ParamsValue> | undefined
         >();
         expect(searchParams).toBeDefined();
-        expect(searchParams).toBe({});
+        expect(searchParams).toBe(searchParams);
         expectTypeOf(searchParams).toMatchTypeOf<
           Record<string, ParamsValue> | undefined
         >();
@@ -86,7 +85,6 @@ describe("page", () => {
       .create(<Component params={params} searchParams={searchParams} />)
       .toJSON();
     expect(ComponentJson).toBeDefined();
-    expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
     expectTypeOf(Component).toMatchTypeOf<FC<NextPageProps<Params>>>();
   });

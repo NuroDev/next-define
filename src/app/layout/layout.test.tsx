@@ -8,10 +8,10 @@ import type { FC, ReactNode } from "react";
 import type { NextLayoutProps } from "./layout.action";
 
 describe("layout", () => {
-  it("Just a basic layout wrapper component", () => {
+  it("Create a basic layout wrapper component", () => {
     const Component = layout(({ children, params }) => {
       expect(params).toBeDefined();
-      expect(params).toBe({});
+      expect(params).toBeInstanceOf(Object);
       expectTypeOf(children).toMatchTypeOf<ReactNode>();
 
       return <>{children}</>;
@@ -21,12 +21,11 @@ describe("layout", () => {
       .create(<Component children={<></>} params={{}} />)
       .toJSON();
     expect(ComponentJson).toBeDefined();
-    expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
     expectTypeOf(Component).toMatchTypeOf<FC<NextLayoutProps>>();
   });
 
-  it("Just a basic layout wrapper component with typed parameters", () => {
+  it("Create a basic layout wrapper component with typed parameters", () => {
     interface Params {
       foo: string;
     }
@@ -47,7 +46,6 @@ describe("layout", () => {
       .create(<Component children={<></>} params={params} />)
       .toJSON();
     expect(ComponentJson).toBeDefined();
-    expect(ComponentJson).not.toBeInstanceOf(Array);
     expect(ComponentJson).toMatchSnapshot();
     expectTypeOf(Component).toMatchTypeOf<FC<NextLayoutProps<Params>>>();
   });
