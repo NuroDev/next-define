@@ -9,8 +9,8 @@ type SupportedHTTPMethods =
   | "POST"
   | "PUT";
 
-type NextRouteHandler<
-  TParams extends object = Record<string, unknown>,
+export type NextRouteHandler<
+  TParams extends Record<string, any> = Record<string, any>,
   TResponse extends Response = Response
 > = (
   request: Request,
@@ -20,7 +20,7 @@ type NextRouteHandler<
 ) => Awaitable<TResponse>;
 
 type DefineAppRouteHandlerOptions<
-  TParams extends Record<string, unknown>,
+  TParams extends Record<string, any>,
   TResponse extends Response = Response
 > = Record<SupportedHTTPMethods, NextRouteHandler<TParams, TResponse>> &
   Pick<NextApiConfig, "runtime">;
@@ -48,7 +48,7 @@ type DefineAppRouteHandlerOptions<
  * @returns {TOptions} The options object.
  */
 export function route<
-  TParams extends Record<string, unknown> = Record<string, unknown>,
+  TParams extends Record<string, any> = Record<string, any>,
   TResponse extends Response = Response,
   TOptions extends Partial<
     DefineAppRouteHandlerOptions<TParams, TResponse>
