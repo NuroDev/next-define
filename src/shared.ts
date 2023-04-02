@@ -1,3 +1,8 @@
+import type { Metadata } from "next";
+import type { ResolvingMetadata } from "next/dist/lib/metadata/types/metadata-interface";
+
+import type { NextPageProps } from "~/app/page/page.action";
+
 export type Awaitable<T> = T | Promise<T>;
 
 export type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
@@ -86,3 +91,11 @@ export interface NextApiConfig {
   runtime?: "edge" | "nodejs";
   regions?: Array<Region>;
 }
+
+export type GenerateMetadataHandler<
+  TParams extends Record<string, any>,
+  TSearchParams extends Record<string, any>
+> = (
+  props: NextPageProps<TParams, TSearchParams>,
+  parent?: ResolvingMetadata
+) => Awaitable<Metadata>;

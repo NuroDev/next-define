@@ -1,6 +1,7 @@
-import type { ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+import type { Metadata } from "next";
 
-import type { ParamsValue } from "~/shared";
+import type { GenerateMetadataHandler, ParamsValue } from "~/shared";
 
 export interface NextLayoutProps<
   TParams extends Record<string, any> = Record<string, ParamsValue>
@@ -24,6 +25,15 @@ export interface NextLayoutProps<
   params?: TParams;
 }
 
+interface NextLayout<
+  TParams extends Record<string, any> = Record<string, any>,
+  TSearchParams extends Record<string, any> = Record<string, any>
+> {
+  Component: FC<NextLayoutProps<TParams>>;
+  generateMetadata?: GenerateMetadataHandler<TParams, TSearchParams>;
+  metadata?: Metadata;
+}
+
 /**
  * **Layout**
  *
@@ -35,22 +45,22 @@ export interface NextLayoutProps<
  *
  * @example
  * ```tsx
- * import { layout } from "next-define/app";
+ * import { defineLayout } from "next-define/app";
  *
- * export default layout(({ children }) => (
- *  <div>
- *    <h1>My Layout</h1>
- *    {children}
- *  </div>
- * ));
+ * const { Component } = defineLayout({
+ *  Component: ({ children }) => (
+ *    <div>
+ *      <h1>My Layout</h1>
+ *      {children}
+ *    </div>
+ *  ),
+ * });
  * ```
  * @returns The layout page component.
  */
 export function defineLayout<
-  TParams extends Record<string, any>,
-  TComponent extends (props: NextLayoutProps<TParams>) => JSX.Element = (
-    props: NextLayoutProps<TParams>
-  ) => JSX.Element
->(Component: TComponent): TComponent {
-  return Component;
+  TParams extends Record<string, any> = Record<string, any>,
+  TSearchParams extends Record<string, any> = Record<string, any>
+>(options: NextLayout<TParams, TSearchParams>): typeof options {
+  return options;
 }

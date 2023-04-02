@@ -1,5 +1,7 @@
 import type { FC } from "react";
-import type { ParamsValue } from "~/shared";
+import type { Metadata } from "next";
+
+import type { GenerateMetadataHandler, ParamsValue } from "~/shared";
 
 export interface NextPageProps<
   TParams extends Record<string, any> = Record<string, ParamsValue>,
@@ -31,8 +33,8 @@ interface NextPage<
   TSearchParams extends Record<string, any> = Record<string, ParamsValue>
 > {
   Component: FC<NextPageProps<TParams, TSearchParams>>;
-  // TODO: Add `generateStaticParams` support.
-  // TODO: Add `metadata` support.
+  generateMetadata?: GenerateMetadataHandler<TParams, TSearchParams>;
+  metadata?: Metadata;
   // TODO: Add `generateMetadata` support.
 }
 
@@ -62,13 +64,15 @@ interface NextPage<
  * ```tsx
  * import { definePage } from "next-define/app";
  *
- * export default definePage<{ foo: string }>({
+ * const { Component } = definePage<{ foo: string }>({
  *  ({ params, searchParams }) => (
  *    <div>
  *      <h1>Hello {params?.foo}</h1>
  *    </div>
  *  )
  * });
+ *
+ * export default Component;
  * ```
  *
  * @returns The page component.
@@ -76,6 +80,6 @@ interface NextPage<
 export function definePage<
   TParams extends Record<string, any> = Record<string, any>,
   TSearchParams extends Record<string, any> = Record<string, ParamsValue>
->(options: NextPage<TParams, TSearchParams>): NextPage<TParams, TSearchParams> {
+>(options: NextPage<TParams, TSearchParams>): typeof options {
   return options;
 }

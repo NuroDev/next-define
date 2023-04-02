@@ -9,12 +9,14 @@ import type { NextLayoutProps } from "./layout.action";
 
 describe("layout", () => {
   it("Create a basic layout wrapper component", () => {
-    const Component = defineLayout(({ children, params }) => {
-      expect(params).toBeDefined();
-      expect(params).toBeInstanceOf(Object);
-      expectTypeOf(children).toMatchTypeOf<ReactNode>();
+    const { Component } = defineLayout({
+      Component: ({ children, params }) => {
+        expect(params).toBeDefined();
+        expect(params).toBeInstanceOf(Object);
+        expectTypeOf(children).toMatchTypeOf<ReactNode>();
 
-      return <>{children}</>;
+        return <>{children}</>;
+      },
     });
 
     const ComponentJson = renderer
@@ -34,12 +36,14 @@ describe("layout", () => {
       foo: "bar",
     } satisfies Params;
 
-    const Component = defineLayout<Params>(({ children, params }) => {
-      expect(params).toBeDefined();
-      expect(params).toBe(params);
-      expectTypeOf(children).toMatchTypeOf<ReactNode>();
+    const { Component } = defineLayout<Params>({
+      Component: ({ children, params }) => {
+        expect(params).toBeDefined();
+        expect(params).toBe(params);
+        expectTypeOf(children).toMatchTypeOf<ReactNode>();
 
-      return <>{children}</>;
+        return <>{children}</>;
+      },
     });
 
     const ComponentJson = renderer
