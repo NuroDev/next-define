@@ -99,3 +99,43 @@ export type GenerateMetadataHandler<
   props: NextPageProps<TParams, TSearchParams>,
   parent?: ResolvingMetadata
 ) => Awaitable<Metadata>;
+
+export interface NextSegmentConfig {
+  /**
+   * Change the dynamic behavior of a layout or page to fully static or fully dynamic.
+   *
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#dynamic
+   */
+  dynamic?: "auto" | "force-dynamic" | "error" | "force-static";
+  /**
+   * Control what happens when a dynamic segment is visited that was not generated with generateStaticParams.
+   *
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#dynamicparams
+   */
+  dynamicParams?: boolean;
+  /**
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#fetchcache
+   */
+  fetchCache?:
+    | "auto"
+    | "default-cache"
+    | "only-cache"
+    | "force-cache"
+    | "force-no-store"
+    | "default-no-store"
+    | "only-no-store";
+  /**
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#preferredregion
+   */
+  preferredRegion?: "auto" | "home" | "edge" | "string";
+  /**
+   * Set the default revalidation time for a layout or page. This option does not override the `revalidate` value set by individual `fetch` requests.
+   *
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#revalidate
+   */
+  revalidate?: false | "force-cache" | 0 | number;
+  /**
+   * @see https://beta.nextjs.org/docs/api-reference/segment-config#runtime
+   */
+  runtime?: NextApiConfig["runtime"];
+}
