@@ -32,36 +32,3 @@ exports[`definePage > A page component with \`getStaticProps\` 2`] = `[Function]
 exports[`definePage > Just a basic page component 1`] = `"Hello World"`;
 
 exports[`definePage > Just a basic page component with typed props 1`] = `"Hello World"`;
-
-exports[`page > A page component with \`getServerSideProps\` 1`] = `
-[
-  "Hello ",
-  "John Doe",
-]
-`;
-
-exports[`page > A page component with \`getServerSideProps\` 2`] = `[Function]`;
-
-exports[`page > A page component with \`getStaticProps\` & \`getStaticPaths\` 1`] = `
-[
-  "Hello ",
-  "John Doe",
-]
-`;
-
-exports[`page > A page component with \`getStaticProps\` & \`getStaticPaths\` 2`] = `[Function]`;
-
-exports[`page > A page component with \`getStaticProps\` & \`getStaticPaths\` 3`] = `[Function]`;
-
-exports[`page > A page component with \`getStaticProps\` 1`] = `
-[
-  "Hello ",
-  "John Doe",
-]
-`;
-
-exports[`page > A page component with \`getStaticProps\` 2`] = `[Function]`;
-
-exports[`page > Just a basic page component 1`] = `"Hello World"`;
-
-exports[`page > Just a basic page component with typed props 1`] = `"Hello World"`;
