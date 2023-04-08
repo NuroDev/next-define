@@ -115,16 +115,20 @@ We even offer support for the new app directory beta by importing from the `/app
 // app/page.tsx
 import { definePage } from "next-define/app";
 
-export default definePage({
+const { Component } = definePage({
   Component: ({ params, searchParams }) => <>Hello World</>,
 });
+
+export default Component;
 ```
 
 ```typescript
 // app/layout.tsx
 import { defineLayout } from "next-define/app";
 
-export default defineLayout(({ children, params }) => <>{children}</>);
+const { Component } = defineLayout(({ children, params }) => <>{children}</>);
+
+export default Component;
 ```
 
 ```typescript
@@ -138,7 +142,7 @@ export default defineError(({ error, reset }) => <></>);
 // app/hello/router.ts
 import { defineRoute } from "next-define/app";
 
-export const { get, runtime } = defineRoute({
+export const { GET, runtime } = defineRoute({
   runtime: "edge",
   GET: (req, { params }) =>
     new Response(
