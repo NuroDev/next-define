@@ -1,4 +1,4 @@
-import type { Awaitable, NextApiConfig } from "~/shared";
+import type { Awaitable, NextSegmentConfig } from "~/shared";
 
 type SupportedHTTPMethods =
   | "DELETE"
@@ -23,7 +23,15 @@ type DefineAppRouteHandlerOptions<
   TParams extends Record<string, any>,
   TResponse extends Response = Response
 > = Record<SupportedHTTPMethods, NextRouteHandler<TParams, TResponse>> &
-  Pick<NextApiConfig, "runtime">;
+  Pick<
+    NextSegmentConfig,
+    | "dynamic"
+    | "dynamicParams"
+    | "revalidate"
+    | "fetchCache"
+    | "runtime"
+    | "preferredRegion"
+  >;
 
 /**
  * **Route**
