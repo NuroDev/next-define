@@ -55,6 +55,8 @@ interface NextLayout<
  *    </div>
  *  ),
  * });
+ *
+ * export default Component;
  * ```
  * @returns The layout page component.
  */
