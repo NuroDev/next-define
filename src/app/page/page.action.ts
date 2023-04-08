@@ -1,7 +1,6 @@
-import type { FC } from "react";
 import type { Metadata } from "next";
 
-import type { GenerateMetadataHandler, ParamsValue } from "~/shared";
+import type { FC, GenerateMetadataHandler, ParamsValue } from "~/shared";
 
 export interface NextPageProps<
   TParams extends Record<string, any> = Record<string, ParamsValue>,
@@ -79,7 +78,11 @@ interface NextPage<
  */
 export function definePage<
   TParams extends Record<string, any> = Record<string, any>,
-  TSearchParams extends Record<string, any> = Record<string, ParamsValue>
->(options: NextPage<TParams, TSearchParams>): typeof options {
+  TSearchParams extends Record<string, any> = Record<string, ParamsValue>,
+  TOptions extends NextPage<TParams, TSearchParams> = NextPage<
+    TParams,
+    TSearchParams
+  >
+>(options: TOptions): TOptions {
   return options;
 }

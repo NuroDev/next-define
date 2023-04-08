@@ -1,7 +1,7 @@
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { Metadata } from "next";
 
-import type { GenerateMetadataHandler, ParamsValue } from "~/shared";
+import type { FC, GenerateMetadataHandler, ParamsValue } from "~/shared";
 
 export interface NextLayoutProps<
   TParams extends Record<string, any> = Record<string, ParamsValue>
@@ -62,7 +62,11 @@ interface NextLayout<
  */
 export function defineLayout<
   TParams extends Record<string, any> = Record<string, any>,
-  TSearchParams extends Record<string, any> = Record<string, any>
->(options: NextLayout<TParams, TSearchParams>): typeof options {
+  TSearchParams extends Record<string, any> = Record<string, any>,
+  TOptions extends NextLayout<TParams, TSearchParams> = NextLayout<
+    TParams,
+    TSearchParams
+  >
+>(options: TOptions): TOptions {
   return options;
 }

@@ -3,10 +3,8 @@ import renderer from "react-test-renderer";
 
 import { definePage } from ".";
 
-import type { FC } from "react";
-
 import type { NextPageProps } from "./page.action";
-import type { ParamsValue } from "~/shared";
+import type { FC, ParamsValue } from "~/shared";
 
 describe("page", () => {
   it("Create a basic page component", () => {
@@ -82,7 +80,10 @@ describe("page", () => {
     });
 
     const ComponentJson = renderer
-      .create(<Component params={params} searchParams={searchParams} />)
+      .create(
+        // @ts-expect-error Typed props means this always returns as a `FC` type & this function, like most, still don't support async components yet
+        <Component params={params} searchParams={searchParams} />
+      )
       .toJSON();
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).toMatchSnapshot();

@@ -3,8 +3,9 @@ import renderer from "react-test-renderer";
 
 import { defineLayout } from ".";
 
-import type { FC, ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type { FC } from "~/shared";
 import type { NextLayoutProps } from "./layout.action";
 
 describe("layout", () => {
@@ -47,7 +48,10 @@ describe("layout", () => {
     });
 
     const ComponentJson = renderer
-      .create(<Component children={<></>} params={params} />)
+      .create(
+        // @ts-expect-error Typed props means this always returns as a `FC` type & this function, like most, still don't support async components yet
+        <Component children={<></>} params={params} />
+      )
       .toJSON();
     expect(ComponentJson).toBeDefined();
     expect(ComponentJson).toMatchSnapshot();

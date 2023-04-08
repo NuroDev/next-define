@@ -1,4 +1,10 @@
 import type { Metadata } from "next";
+import type {
+  JSXElementConstructor,
+  ReactElement,
+  ValidationMap,
+  WeakValidationMap,
+} from "react";
 import type { ResolvingMetadata } from "next/dist/lib/metadata/types/metadata-interface";
 
 import type { NextPageProps } from "~/app/page/page.action";
@@ -138,4 +144,30 @@ export interface NextSegmentConfig {
    * @see https://beta.nextjs.org/docs/api-reference/segment-config#runtime
    */
   runtime?: NextApiConfig["runtime"];
+}
+
+// This is a custom fork of the official `FC` type from React so we can add async support.
+export type FC<
+  TProps extends Record<string, any>,
+  TContext = unknown,
+  TReturn extends string | JSXElementConstructor<any> =
+    | string
+    | JSXElementConstructor<any>
+> = FunctionComponent<TProps, TContext, TReturn>;
+
+interface FunctionComponent<
+  TProps extends Record<string, any>,
+  TContext = unknown,
+  TReturn extends string | JSXElementConstructor<any> =
+    | string
+    | JSXElementConstructor<any>
+> {
+  (props: TProps, context?: TContext): Awaitable<ReactElement<
+    TProps,
+    TReturn
+  > | null>;
+  contextTypes?: ValidationMap<any>;
+  defaultProps?: Partial<TProps>;
+  displayName?: string;
+  propTypes?: WeakValidationMap<TProps>;
 }

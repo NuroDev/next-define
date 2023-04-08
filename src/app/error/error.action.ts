@@ -1,3 +1,5 @@
+import type { FC } from "~/shared";
+
 export interface NextErrorPageProps {
   /**
    * **Error**
@@ -41,9 +43,7 @@ export interface NextErrorPageProps {
  * @returns The error page component.
  */
 export function defineError<
-  TComponent extends (props: NextErrorPageProps) => JSX.Element = (
-    props: NextErrorPageProps
-  ) => JSX.Element
+  TComponent extends FC<NextErrorPageProps> = FC<NextErrorPageProps>
 >(Component: TComponent): TComponent {
   return Component;
 }
